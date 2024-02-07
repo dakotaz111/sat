@@ -52,6 +52,7 @@ def git_push():
         print('pushed changes')
     except:
         picam2.stop()
+        
         print('Couldn\'t upload to git')
 
 
