@@ -43,7 +43,6 @@ def git_push():
         repo = Repo(REPO_PATH)
         origin = repo.remote('origin')
         print('added remote')
-        print('cat')
         origin.pull()
         print('pulled changes')
         repo.git.add(REPO_PATH + FOLDER_PATH)
