@@ -12,26 +12,31 @@ def get_mask(image, lower_bound, upper_bound):
 
 
 def part_1(image):
-    color_range = {}
-    #Figure out what the lower and upper bounds for each color should be
-    color_range["black"] = [(0,0,0), (100,100,100)]
-    color_range["white"] = [(200,200,200), (255,255,255)]
-    
     #Counter for amount of pixels of each color
     color_amount = {"black":0, "white":0}
         
     #PART 1: COLOR IDENTIFICATION
-    processedImg = cv2.inRange(image, color_range.get("black")[0], color_range.get("black")[1])
-    
+    processedImg = cv2.inRange(image, (200,200,200), (255,255,255)) # lower/upper thresholds for white
+    pixels = processedImg.tolist()
+    black_coords = []
+    white_coords = []
 
-    
+    # Pixel iteration
+    for x in range(len(pixels)):
+        for y in range(len(pixels[x])):
+            if pixels[x][y] == 0:
+                black_coords.append((x, y))
+                color_amount["black"] += 1
+            elif pixels[x][y] == 255:
+                white_coords.append((x, y))
+                color_amount["white"] += 1
     
     total_pixels = image.shape[0] * image.shape[1]
     perc_red = color_amount["red"] / total_pixels
     perc_green = color_amount["green"] / total_pixels
     perc_blue = color_amount["blue"] / total_pixels
     
-    return (color_range, perc_blue, perc_green, perc_red)
+    return (black_coords, white_coords, perc_red, perc_green, perc_blue);
 
     
 #Main code that is being run
