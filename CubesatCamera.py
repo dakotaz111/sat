@@ -25,3 +25,13 @@ from git import Repo
 
 repo = Repo("/home/pi/sat")
 image_path = "/home/pi/sat/images"
+
+#IMU Setup
+i2c = board.I2C()
+gyro = LSM6DS(i2c) #gyro+accel
+mag = LIS3MDL(i2c) #magnetometer
+
+print("Acceleration: X:%.2f, Y: %.2f, Z: %.2f m/s^2" % (gyro.acceleration))
+print("Gyro X:%.2f, Y: %.2f, Z: %.2f degrees/s" % (gyro.gyro))
+print("")
+time.sleep(0.5)
