@@ -14,17 +14,16 @@ def get_mask(image, lower_bound, upper_bound):
 def part_1(image):
     color_range = {}
     #Figure out what the lower and upper bounds for each color should be
-    color_range["blue"] = [(?,?,?), (?,?,?)]
-    color_range["green"] = [(?,?,?), (?,?,?)]
-    color_range["red"] = [(?,?,?), (?,?,?)]
+    color_range["black"] = [(0,0,0), (100,100,100)]
+    color_range["white"] = [(200,200,200), (255,255,255)]
     
     #Counter for amount of pixels of each color
-    color_amount = {"red":0, "green":0, "blue":0}
+    color_amount = {"black":0, "white":0}
         
     #PART 1: COLOR IDENTIFICATION
-    #<YOUR CODE GOES HERE>
+    processedImg = cv2.inRange(image, color_range.get("black")[0], color_range.get("black")[1])
     
-    
+
     
     
     total_pixels = image.shape[0] * image.shape[1]
@@ -34,20 +33,10 @@ def part_1(image):
     
     return (color_range, perc_blue, perc_green, perc_red)
 
-
-
-def part_2(image, image_HSV):
-    #PART 2 TODO: Increase saturation, contrast, brightness, etc
-    #<YOUR CODE GOES HERE>
-    enhanced_image =  #Don't change the input images, store new enhanced image here
-    
-    return enhanced_image
-
-    
     
 #Main code that is being run
 def color_id(image_file = 'test.jpg', show = False):
-    folder_path = '' #Replace with the folder path for the folder in the
+    folder_path = '/home/pi/sat' #Replace with the folder path for the folder in the
                      #Flat Sat Challenge with your name so you can view images
                      #on Github if you don't have VNC/X forwarding
 
@@ -82,23 +71,6 @@ def color_id(image_file = 'test.jpg', show = False):
         cv2.imwrite(folder_path + '/green_mask.jpg', green_mask)
         cv2.imwrite(folder_path + '/red_mask.jpg', red_mask)
         print('Image masks saved')
-    
-    #Uncomment when you want to work on part 2
-    """
-    enhanced_image = part_2(image, image_HSV)
-    
-    #Shows orginal image and enhanced image
-    if show:
-        cv2.imshow('Original Image', image) 
-        cv2.imshow('Enhanced Image', enhanced_image) 
-        
-        cv2.waitKey()
-        cv2.destroyAllWindows()
-    else:
-        cv2.imwrite(folder_path + '/enhanced_image.jpg', enhanced_image)
-        print('Enhanced image saved')
-    """
-    
 
 """ This code is for command line entry. It allows you to add arguments 
     for what you want the code to run on. For instance, if I want to run 
