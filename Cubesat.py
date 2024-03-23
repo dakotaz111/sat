@@ -2,16 +2,14 @@ import cv2
 import numpy as np
 
 #Script for determining the percentage of each color using PIL and using
-#RGB representation. When running in the command line, type the image file. Type
-#True if you want to see the image after the filters are applied
+#RGB representation. When running in the command line, type the image file.
 
 def get_mask(image, lower_bound, upper_bound):
     threshold = cv2.inRange(image, lower_bound, upper_bound)
     mask = cv2.bitwise_and(image, image, mask=threshold)
     return cv2.bitwise_and(image, mask)
 
-
-def part_1(image):
+def processing(image):
     #Counter for amount of pixels of each color
     color_amount = {"black":0, "white":0}
         
@@ -36,46 +34,20 @@ def part_1(image):
     perc_green = color_amount["green"] / total_pixels
     perc_blue = color_amount["blue"] / total_pixels
     
-    return (black_coords, white_coords, perc_red, perc_green, perc_blue);
-
-    
+    return (processedImg, black_coords, white_coords, perc_red, perc_green, perc_blue);
+   
 #Main code that is being run
-def color_id(image_file = 'test.jpg', show = False):
+def color_id(image_file = 'test.jpg'):
     folder_path = '/home/pi/sat' #Replace with the folder path for the folder in the
                      #Flat Sat Challenge with your name so you can view images
                      #on Github if you don't have VNC/X forwarding
 
-
     image = cv2.imread('images/' + image_file) #Converts image to numpy array in BGR format
-    image_HSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV) #Converts BGR image to HSV format
     
-    color_range, perc_blue, perc_green, perc_red = part_1(image)
+    processedImg, black_coords, white_coords, perc_blue, perc_green, perc_red = processing(image)
     
-    print("The percentage of red is",round(100*perc_red,2),"%")
-    print("The percentage of green is",round(100*perc_green,2),"%")
-    print("The percentage of blue is",round(100*perc_blue,2),"%")
-    
+    cv2.imwrite(folder_path + 'processedImg.jpg', processedImg)
 
-    blue_mask = get_mask(image, *color_range['blue'])
-    green_mask = get_mask(image, *color_range['green'])
-    red_mask = get_mask(image, *color_range['red'])
-    
-    #If the show flag is set to true, this will set up images to visualize the color ID.
-    #Note: if you're on a windows machine and haven't set up X11 forwarding, 
-    #this won't work. If show is set to False, the image masks will be stored to
-    #the images/ folder
-    if show:
-        cv2.imshow('Blue Mask', blue_mask)
-        cv2.imshow('Green Mask', green_mask)
-        cv2.imshow('Red Mask', red_mask)
-        
-        cv2.waitKey()
-        cv2.destroyAllWindows()
-    else:
-        cv2.imwrite(folder_path + '/blue_mask.jpg', blue_mask)
-        cv2.imwrite(folder_path + '/green_mask.jpg', green_mask)
-        cv2.imwrite(folder_path + '/red_mask.jpg', red_mask)
-        print('Image masks saved')
 
 """ This code is for command line entry. It allows you to add arguments 
     for what you want the code to run on. For instance, if I want to run 
