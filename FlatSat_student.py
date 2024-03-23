@@ -1,15 +1,3 @@
-"""
-The Python code you will write for this module should read
-acceleration data from the IMU. When a reading comes in that surpasses
-an acceleration threshold (indicating a shake), your Pi should pause,
-trigger the camera to take a picture, then save the image with a
-descriptive filename. You may use GitHub to upload your images automatically,
-but for this activity it is not required.
-
-The provided functions are only for reference, you do not need to use them. 
-You will need to complete the take_photo() function and configure the VARIABLES section
-"""
-
 #AUTHOR: Jeremy Wang, Yuanheng Mao
 #DATE: 1/30/24
 
