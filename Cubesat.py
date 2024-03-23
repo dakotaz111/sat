@@ -30,11 +30,10 @@ def processing(image):
                 color_amount["white"] += 1
     
     total_pixels = image.shape[0] * image.shape[1]
-    perc_red = color_amount["red"] / total_pixels
-    perc_green = color_amount["green"] / total_pixels
-    perc_blue = color_amount["blue"] / total_pixels
+    perc_black = color_amount["black"] / total_pixels
+    perc_white = color_amount["white"] / total_pixels
     
-    return (processedImg, black_coords, white_coords, perc_red, perc_green, perc_blue);
+    return (processedImg, black_coords, white_coords, perc_black, perc_white);
    
 #Main code that is being run
 def color_id(image_file = 'test.jpg'):
@@ -44,7 +43,7 @@ def color_id(image_file = 'test.jpg'):
 
     image = cv2.imread('images/' + image_file) #Converts image to numpy array in BGR format
     
-    processedImg, black_coords, white_coords, perc_blue, perc_green, perc_red = processing(image)
+    processedImg, black_coords, white_coords, perc_black, perc_white = processing(image)
     
     cv2.imwrite(folder_path + 'processedImg.jpg', processedImg)
 
