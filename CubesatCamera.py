@@ -34,5 +34,4 @@ mag = LIS3MDL(i2c) #magnetometer
 #test code
 while(True):
     print("Acceleration: X:%.2f, Y: %.2f, Z: %.2f m/s^2" % (gyro.acceleration))
-    print("Gyro X:%.2f, Y: %.2f, Z: %.2f degrees/s" % (gyro.gyro))
-    print("")
+    # print("Gyro X:%.2f, Y: %.2f, Z: %.2f degrees/s" % (gyro.gyro))
