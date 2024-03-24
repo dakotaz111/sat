@@ -32,7 +32,8 @@ gyro = LSM6DS(i2c) #gyro+accel
 mag = LIS3MDL(i2c) #magnetometer
 
 #test code
-print("Acceleration: X:%.2f, Y: %.2f, Z: %.2f m/s^2" % (gyro.acceleration))
-print("Gyro X:%.2f, Y: %.2f, Z: %.2f degrees/s" % (gyro.gyro))
-print("")
-time.sleep(0.5)
+while(True):
+    print("Acceleration: X:%.2f, Y: %.2f, Z: %.2f m/s^2" % (gyro.acceleration))
+    print("Gyro X:%.2f, Y: %.2f, Z: %.2f degrees/s" % (gyro.gyro))
+    print("")
+    time.sleep(0.5)
