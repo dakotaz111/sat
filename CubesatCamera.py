@@ -60,7 +60,6 @@ def name():
 
 #test code
 
-picam2.start_preview(Preview.QTGL)
 picam2.start()
 time.sleep(2)
 picam2.capture_file(name())
