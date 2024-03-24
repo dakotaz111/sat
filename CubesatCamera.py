@@ -56,6 +56,7 @@ def name():
 
 #test code
 
+#code to take pic
 picam2.start()
 time.sleep(2)
 picam2.capture_file(name())
