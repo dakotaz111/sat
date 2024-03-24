@@ -37,20 +37,16 @@ config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"
 picam2.configure(config)
 
 def git_push():
-    try:
-        origin = repo.remote('origin')
-        print('added remote')
-        origin.pull()
-        print('pulled changes')
-        repo.git.add("/home/massbuilders/sat/images")
-        repo.index.commit('New Photo')
-        print('made the commit')
-        origin.push()
-        print('pushed changes')
-    except:
-        picam2.stop()
-        
-        print('Couldn\'t upload to git')
+    origin = repo.remote('origin')
+    print('added remote')
+    origin.pull()
+    print('pulled changes')
+    repo.git.add("/home/massbuilders/sat/images")
+    repo.index.commit('New Photo')
+    print('made the commit')
+    origin.push()
+    print('pushed changes')
+    picam2.stop()
 
 def name():
     now = datetime.now()
