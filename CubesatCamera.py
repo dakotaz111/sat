@@ -14,6 +14,7 @@ Purpose: This code will interface all of the electrical components of the Cubesa
 #Imports
 import numpy
 import time
+from datetime import datetime
 
 import board
 from adafruit_lsm6ds.lsm6dsox import LSM6DSOX as LSM6DS
@@ -24,7 +25,6 @@ from picamera2  import Picamera2, Preview
 from git import Repo
 
 repo = Repo("/home/massbuilders/sat")
-image_path = "/images"
 
 #IMU Setup
 i2c = board.I2C()
@@ -36,20 +36,36 @@ picam2=Picamera2()
 config = picam2.create_still_configuration(main={"size": (1920, 1080)}, lores={"size": (640, 480)}, display="lores") # adjust img size here
 picam2.configure(config)
 
+def git_push():
+    try:
+        origin = repo.remote('origin')
+        print('added remote')
+        origin.pull()
+        print('pulled changes')
+        repo.git.add("/home/massbuilders/sat/images")
+        repo.index.commit('New Photo')
+        print('made the commit')
+        origin.push()
+        print('pushed changes')
+    except:
+        picam2.stop()
+        
+        print('Couldn\'t upload to git')
+
+def name():
+    now = datetime.now()
+    date = now.strftime("%m-%d-%Y_%H-%M-%S")
+    name = f"/home/massbuilders/sat/images/{date}.jpg"
+    return name
+
 #test code
 
 picam2.start_preview(Preview.QTGL)
 picam2.start()
 time.sleep(2)
-picam2.capture_file("test.jpg")
-
-
-
-
-
-
-
-
+picam2.capture_file(name())
+picam2.stop()
+git_push()
 
 # while(True):
 #     # print("Acceleration: X:%.2f, Y: %.2f, Z: %.2f m/s^2" % (gyro.acceleration))
