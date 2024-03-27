@@ -55,13 +55,13 @@ def git_push():
     print('pushed changes')
     picam2.stop()
 
-def name():
+def naming():
     now = datetime.now()
     date = now.strftime("%m-%d-%Y_%H-%M-%S")
     name = f"/home/massbuilders/sat/images/{date}.jpg"
     return name
 
-name = name()
+name = naming()
 
 #Script for determining the percentage of each color using PIL and using
 #RGB representation. When running in the command line, type the image file.
@@ -72,12 +72,11 @@ def get_mask(image, lower_bound, upper_bound):
     return cv2.bitwise_and(image, mask)
 
 def processing(image):
-    image = name;
     #Counter for amount of pixels of each color
     color_amount = {"black":0, "white":0}
         
     #PART 1: COLOR IDENTIFICATION
-    processedImg = cv2.inRange(image, (200,200,200), (255,255,255)) # lower/upper thresholds for white
+    processedImg = cv2.inRange(image, (150,150,150), (255,255,255)) # lower/upper thresholds for white
     pixels = processedImg.tolist()
     black_coords = []
     white_coords = []
@@ -100,26 +99,27 @@ def processing(image):
    
 #Main code that is being run
 def color_id(image_file):
-    folder_path = f'/home/massbuilders/sat/images' #Replace with the folder path for the folder in the
+    folder_path = f'/home/massbuilders/sat/' #Replace with the folder path for the folder in the
                      #Flat Sat Challenge with your name so you can view images
                      #on Github if you don't have VNC/X forwarding
 
-    image = cv2.imread('images/' + image_file) #Converts image to numpy array in BGR format
+    image = cv2.imread(name) #Converts image to numpy array in BGR format
     
     processedImg, black_coords, white_coords, perc_black, perc_white = processing(image)
     
-    cv2.imwrite(folder_path + 'processedImg.jpg', processedImg)
-    git_push()
+    cv2.imwrite(folder_path + 'images/processedImg.jpg', processedImg)
+    print(black_coords)
+    print(perc_black)
 
 #test code
 data = [black_coords]
 with open('processedData.csv','a', newline='') as file:
-    csvreader = csv.writer(file)
+    csvwriter = csv.writer(file)
     csvwriter.writerows(data)
 
 picam2.start()
 time.sleep(2)
-name = name()
+name = naming()
 picam2.capture_file(name)
 picam2.stop()
 
@@ -135,4 +135,5 @@ picam2.stop()
 if __name__ == '__main__':
     import sys
     
-    color_id(name)
+    color_id(*sys.argv[1:])
+    git_push()
