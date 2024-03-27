@@ -72,6 +72,7 @@ def get_mask(image, lower_bound, upper_bound):
     return cv2.bitwise_and(image, mask)
 
 def processing(image):
+    image = name;
     #Counter for amount of pixels of each color
     color_amount = {"black":0, "white":0}
         
