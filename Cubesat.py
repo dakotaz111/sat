@@ -26,6 +26,11 @@ from picamera2  import Picamera2, Preview
 
 #Git Setup
 from git import Repo
+outageSectors = []
+outageSectors.append(1)
+outageSectors.append(3)
+outageSectors.append(7)
+
 
 repo = Repo("/home/massbuilders/sat")
 
@@ -76,10 +81,8 @@ def processing(image):
     color_amount = {"black":0, "white":0}
         
     #PART 1: COLOR IDENTIFICATION
-    processedImg = cv2.inRange(image, (150,150,150), (255,255,255)) # lower/upper thresholds for white
+    processedImg = cv2.inRange(image, (100,100,100), (255,255,255)) # lower/upper thresholds for white
     pixels = processedImg.tolist()
-    black_coords = []
-    white_coords = []
 
     # Pixel iteration
     for x in range(len(pixels)):
@@ -108,14 +111,9 @@ def color_id(image_file):
     processedImg, black_coords, white_coords, perc_black, perc_white = processing(image)
     
     cv2.imwrite(folder_path + 'images/processedImg.jpg', processedImg)
-    print(black_coords)
-    print(perc_black)
 
 #test code
-data = [black_coords]
-with open('processedData.csv','a', newline='') as file:
-    csvwriter = csv.writer(file)
-    csvwriter.writerows(data)
+
 
 picam2.start()
 time.sleep(2)
@@ -136,4 +134,9 @@ if __name__ == '__main__':
     import sys
     
     color_id(*sys.argv[1:])
+    data = outageSectors
+    with open('/home/massbuilders/sat/processedData.csv','a') as file:
+        csvwriter = csv.writer(file)
+        csvwriter.writerow('outageSectors')
+        csvwriter.writerow(data)
     git_push()
