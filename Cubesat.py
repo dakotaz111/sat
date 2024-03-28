@@ -54,6 +54,7 @@ def git_push():
     origin.pull()
     print('pulled changes')
     repo.git.add("/home/massbuilders/sat/images")
+    repo.git.add("/home/massbuilders/sat/processedData.csv")
     repo.index.commit('New Photo')
     print('made the commit')
     origin.push()
@@ -137,5 +138,5 @@ if __name__ == '__main__':
     data = outageSectors
     with open('/home/massbuilders/sat/processedData.csv','a') as file:
         csvwriter = csv.writer(file)
-        csvwriter.writerow(data)
+        csvwriter.writerow(f'{name},[{data}]')
     git_push()
