@@ -82,16 +82,16 @@ def processing(image):
     color_amount = {"black":0, "white":0}
         
     #PART 1: COLOR IDENTIFICATION
-    processedImg = cv2.inRange(image, (100,100,100), (255,255,255)) # lower/upper thresholds for white
+    processedImg = cv2.inRange(image, (0,0,0), (75,75,75)) # lower/upper thresholds for white
     pixels = processedImg.tolist()
 
     # Pixel iteration
     for x in range(len(pixels)):
         for y in range(len(pixels[x])):
-            if pixels[x][y] == 0:
+            if pixels[x][y] == 255:
                 black_coords.append((x, y))
                 color_amount["black"] += 1
-            elif pixels[x][y] == 255:
+            elif pixels[x][y] == 0:
                 white_coords.append((x, y))
                 color_amount["white"] += 1
     
