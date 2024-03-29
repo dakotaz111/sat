@@ -141,7 +141,7 @@ if __name__ == '__main__':
     data = outageSectors
     with open('/home/massbuilders/sat/processedData.csv','w') as file:
         csvwriter = csv.writer(file)
-        csvwriter.writerow(["Date: ",name[30:-4]])
+        csvwriter.writerow(["Date",name[30:-4]])
         csvwriter.writerow(data)
-        csvwriter.writerow(["Percent of city without power: ",perc_black*100])
+        csvwriter.writerow(["Percent of city without power",perc_black*100])
     git_push()
