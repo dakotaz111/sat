@@ -139,6 +139,6 @@ if __name__ == '__main__':
     data = outageSectors
     with open('/home/massbuilders/sat/processedData.csv','w') as file:
         csvwriter = csv.writer(file)
-        csvwriter.writerow([name[29:],])
+        csvwriter.writerow([name[30:],])
         csvwriter.writerow(data)
     git_push()
