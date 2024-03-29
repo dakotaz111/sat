@@ -141,4 +141,5 @@ if __name__ == '__main__':
         csvwriter = csv.writer(file)
         csvwriter.writerow([name[30:],])
         csvwriter.writerow(data)
+        csvwriter.writerow([perc_black,])
     git_push()
