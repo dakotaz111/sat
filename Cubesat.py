@@ -111,7 +111,7 @@ def color_id(image_file):
     image = cv2.imread(name) #Converts image to numpy array in BGR format
     
     processedImg, black_coords, white_coords, perc_black, perc_white = processing(image)
-    
+    print(perc_black)
     cv2.imwrite(folder_path + 'images/processedImg.jpg', processedImg)
 
 #test code
