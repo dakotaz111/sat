@@ -36,7 +36,7 @@ repo = Repo("/home/massbuilders/sat")
 
 black_coords = []
 white_coords = []
-perc_black=0
+perc_black = 0
 #IMU Setup
 i2c = board.I2C()
 gyro = LSM6DS(i2c) #gyro+accel
@@ -97,7 +97,9 @@ def processing(image):
                 color_amount["white"] += 1
     
     total_pixels = image.shape[0] * image.shape[1]
+    global perc_black
     perc_black = color_amount["black"] / total_pixels
+    global perc_white
     perc_white = color_amount["white"] / total_pixels
     
     return (processedImg, black_coords, white_coords, perc_black, perc_white);
