@@ -36,7 +36,7 @@ repo = Repo("/home/massbuilders/sat")
 
 black_coords = []
 white_coords = []
-
+perc_black=0
 #IMU Setup
 i2c = board.I2C()
 gyro = LSM6DS(i2c) #gyro+accel
@@ -53,6 +53,7 @@ def git_push():
     print('added remote')
     origin.pull()
     print('pulled changes')
+    repo.git.add("/home/massbuilders/sat/Cubesat.py")
     repo.git.add("/home/massbuilders/sat/images")
     repo.git.add("/home/massbuilders/sat/processedData.csv")
     repo.index.commit('New Photo')
@@ -138,5 +139,6 @@ if __name__ == '__main__':
     data = outageSectors
     with open('/home/massbuilders/sat/processedData.csv','a') as file:
         csvwriter = csv.writer(file)
-        csvwriter.writerow(f'{name},[{data}]')
+        csvwriter.writerow(name[29:])
+        csvwriter.writerow(data)
     git_push()
