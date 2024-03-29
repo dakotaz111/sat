@@ -137,7 +137,7 @@ if __name__ == '__main__':
     
     color_id(*sys.argv[1:])
     data = outageSectors
-    with open('/home/massbuilders/sat/processedData.csv','a') as file:
+    with open('/home/massbuilders/sat/processedData.csv','w') as file:
         csvwriter = csv.writer(file)
         csvwriter.writerow([name[29:],])
         csvwriter.writerow(data)
