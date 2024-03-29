@@ -113,11 +113,7 @@ def color_id(image_file):
     image = cv2.imread(name) #Converts image to numpy array in BGR format
     
     processedImg, black_coords, white_coords, perc_black, perc_white = processing(image)
-    print(perc_black)
     cv2.imwrite(folder_path + 'images/processedImg.jpg', processedImg)
-
-#test code
-
 
 picam2.start()
 time.sleep(2)
@@ -141,10 +137,10 @@ if __name__ == '__main__':
     data = outageSectors
     with open('/home/massbuilders/sat/processedData.csv','w') as file:
         csvwriter = csv.writer(file)
-        csvwriter.writerow(["Date",])
+        csvwriter.writerow(["Date & Time:",])
         csvwriter.writerow([name[30:-4],])
-        csvwriter.writerow(["Sectors without power",])
+        csvwriter.writerow(["Sectors without power:",])
         csvwriter.writerow(data)
-        csvwriter.writerow(["Percent of city without power",])
+        csvwriter.writerow(["Percent of city without power:",])
         csvwriter.writerow([perc_black*100,])
     git_push()
