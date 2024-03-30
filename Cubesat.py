@@ -140,7 +140,7 @@ if __name__ == '__main__':
         csvwriter.writerow(["Date & Time:",])
         csvwriter.writerow([name[30:-4],])
         csvwriter.writerow(["Sectors without power:",])
-        if(perc_black > 3):
+        if(perc_black > .03):
             csvwriter.writerow(data)
         else:
             csvwriter.writerow(["None",])
